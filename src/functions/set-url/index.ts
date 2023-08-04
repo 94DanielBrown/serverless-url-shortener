@@ -9,22 +9,23 @@ export const handler = async (event: APIGatewayProxyEvent) => {
         const tableName = process.env.URL_TABLE;
         const baseUrl = process.env.BASE_URL;
 
-        console.log({
-            tableName,
-            environmentVars: process.env
-        });
-
         const originalUrl = body.url;
 
         const code = uuid().slice(0,8);
 
         const shortUrl = `${baseUrl}/${code}`
 
+        console.log(`originalUrl = ${originalUrl}`);
+        console.log(`shortUrl = ${shortUrl}`);
+        console.log(`code = ${code}`);
+
         const data = {
             id: code,
             shortUrl,
             originalUrl
-        }
+        };
+
+        console.log(data);
 
         await dynamo.write(data, tableName);
 
